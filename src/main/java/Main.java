@@ -1,3 +1,4 @@
+import controller.Controller;
 import view.CLI;
 
 import java.util.Locale;
@@ -14,7 +15,7 @@ public class Main {
         if (input.toLowerCase(Locale.ROOT).equals("cli")) {
             CLI.askArgsAndRun(sc);
         } else {
-            // GUI TODO
+            Controller c = new Controller();
         }
     }
 
