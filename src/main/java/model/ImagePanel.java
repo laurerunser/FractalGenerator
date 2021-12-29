@@ -5,6 +5,9 @@ import controller.Controller;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 public class ImagePanel extends JPanel {
@@ -106,6 +109,16 @@ public class ImagePanel extends JPanel {
     public void addImageDisplay(int width, int height) {
         this.width = width;
         this.height = height;
+        imageDisplay.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                controller.zoom(e.getX(), e.getY());
+                imageDisplay.repaint();
+            }
+        });
+        // using MouseAdapter and not MouseListener bc I don't want to define all the
+        // methods, only mouseClicked
         drawImage(true);
     }
 
