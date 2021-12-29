@@ -49,7 +49,6 @@ public abstract class FractalGenerator {
         return divergenceIndex; // TODO : defensive copy ?
     }
 
-
     /**
      * Computes all the divergence index
      */
@@ -65,52 +64,5 @@ public abstract class FractalGenerator {
 
     abstract int divergenceIndex(double x, double y);
 
-    public void moveHorizontal(boolean left) {
-        int nbMove = width / 3;
-        double newX;
 
-        if (left) {
-            for (int i = width - 1; i > nbMove; i--) {
-                System.arraycopy(divergenceIndex[i - 1], 0, divergenceIndex[i], 0, height);
-            }
-            newX = range.x - nbMove;
-        } else {
-            for (int i = 0; i < nbMove * 2; i++) {
-                System.arraycopy(divergenceIndex[i + 1], 0, divergenceIndex[i], 0, height);
-            }
-            newX = range.x + nbMove;
-        }
-
-        Rectangle2D.Double missingRange = new Rectangle2D.Double(newX, range.y, nbMove, range.height);
-        computeDivergenceIndex(missingRange);
-
-        range = new Rectangle2D.Double(newX, range.y, range.width, range.height);
-    }
-
-
-    public void moveVertical(boolean up) {
-        int nbMove = height / 3;
-        double newY;
-
-        if (up) {
-            for (int j = height - 1; j > nbMove; j--) {
-                for (int i = 0; i < width; i++) {
-                    divergenceIndex[i][j] = divergenceIndex[i][j - 1];
-                }
-            }
-            newY = range.y - nbMove;
-        } else {
-            for (int j = 0; j < 2 * nbMove; j++) {
-                for (int i = 0; i < width; i++) {
-                    divergenceIndex[i][j] = divergenceIndex[i][j + 1];
-                }
-            }
-            newY = range.y + nbMove;
-        }
-
-        Rectangle2D.Double missingRange = new Rectangle2D.Double(range.x, newY, range.width, nbMove);
-        computeDivergenceIndex(missingRange);
-
-        range = new Rectangle2D.Double(range.x, newY, range.width, range.height);
-    }
 }

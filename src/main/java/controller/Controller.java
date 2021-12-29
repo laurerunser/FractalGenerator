@@ -71,12 +71,14 @@ public class Controller {
     }
 
     public void move(boolean horizontal, boolean direction) {
+        Rectangle2D.Double range = generator.getRange();
+        int dir = direction?-1:1;
         if (horizontal) {
-            generator.moveHorizontal(direction);
+            range.x = range.x + dir * (range.width / 3);
         } else {
-            generator.moveVertical(direction);
+            range.y = range.y + dir * (range.height / 3);
         }
-        view.getImagePanel().drawImage(false);
+        view.getImagePanel().drawImage(true);
     }
 
     public void resetFractal() {
