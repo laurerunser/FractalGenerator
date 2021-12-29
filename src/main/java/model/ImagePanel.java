@@ -135,7 +135,7 @@ public class ImagePanel extends JPanel {
                 BufferedImage tmp = new BufferedImage(200,200, BufferedImage.TYPE_INT_RGB);
                 for (int i = 0; i< 200; i++) {
                     for (int j = 0; j< 200; j++) {
-                        tmp.setRGB(i,j,100);
+                        tmp.setRGB(i,j, 0xFFFFFF);
                     }
                 }
                 g2d.drawImage(tmp, 0, 0,this);
