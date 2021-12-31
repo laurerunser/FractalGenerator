@@ -63,8 +63,8 @@ public class SettingsPanel extends JPanel {
         this.add(makeWidthAndHeightButtons(), 2);
         this.add(makeRangeFields(), 3);
         this.add(makeValidateButton(), 4);
-        this.add(makeNavigationButtons(), 5);
-        this.add(makeZoomButtons(), 6);
+        this.add(makeZoomAndNav(), 5);
+        this.add(makePresetExamples(), 6);
         this.setVisible(true);
     }
 
@@ -290,6 +290,17 @@ public class SettingsPanel extends JPanel {
     }
 
     /**
+     * @return a JPanel with the zoom and navigation buttons
+     */
+    private JPanel makeZoomAndNav() {
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createTitledBorder("Navigation controls"));
+        panel.add(makeNavigationButtons());
+        panel.add(makeZoomButtons());
+        return panel;
+    }
+
+    /**
      * @return a JPanel with navigation buttons inside
      */
     private JPanel makeNavigationButtons() {
@@ -334,6 +345,56 @@ public class SettingsPanel extends JPanel {
         panel.add(zoom);
         panel.add(in);
         panel.add(out);
+        return panel;
+    }
+
+    private JPanel makePresetExamples() {
+        JButton rabbit = new JButton("Douady Rabbit");
+        rabbit.addActionListener(e -> {
+            FractalGenerator generator = FractalGenerator.Builder.newInstance()
+                    .type(FractalType.JULIA)
+                    .polynomeConstant(2.55268, -0.959456)
+                    .build();
+            controller.setGenerator(generator);
+        });
+
+        JButton circle = new JButton("Circle");
+        circle.addActionListener(e -> {
+            FractalGenerator generator = FractalGenerator.Builder.newInstance()
+                    .type(FractalType.JULIA)
+                    .polynomeConstant(0, 0)
+                    .build();
+            controller.setGenerator(generator);
+        });
+
+        JButton juliaEx = new JButton("Nice Julia set");
+        juliaEx.addActionListener(e -> {
+            FractalGenerator generator = FractalGenerator.Builder.newInstance()
+                    .type(FractalType.JULIA)
+                    .polynomeConstant(-0.7269, 0.1889)
+                    .build();
+            controller.setGenerator(generator);
+        });
+
+        JButton juliaEx2 = new JButton("Another nice Julia set");
+        juliaEx2.addActionListener(e -> {
+            FractalGenerator generator = FractalGenerator.Builder.newInstance()
+                    .type(FractalType.JULIA)
+                    .polynomeConstant(-0.8535, -0.2321)
+                    .build();
+            controller.setGenerator(generator);
+        });
+
+
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createTitledBorder("Pre-set examples"));
+        JLabel label = new JLabel("Click on the buttons to see some pre-set nice fractals");
+
+        panel.add(label);
+        panel.add(rabbit);
+        panel.add(circle);
+        panel.add(juliaEx);
+        panel.add(juliaEx2);
         return panel;
     }
 }
