@@ -121,6 +121,8 @@ public abstract class FractalGenerator {
                 divergenceIndex[x][y] = divergenceIndex(xI, yJ);
             });
         });
+
+        System.out.println(range.x + " " + range.y + " " + range.width + " " + range.height);
     }
 
     /**

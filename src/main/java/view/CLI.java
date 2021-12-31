@@ -48,15 +48,21 @@ public class CLI {
             if (ask) System.out.println("imaginary part of the julia constant ? ");
             double constI = Double.parseDouble(sc.next());
 
-            FractalGenerator generator = FractalGenerator.Builder.newInstance().type(FractalType.JULIA).width(width).height(height)
+            FractalGenerator generator = FractalGenerator.Builder.newInstance()
+                    .type(FractalType.JULIA)
+                    .width(width).height(height)
                     .polynomeConstant(constR, constI)
-                    .range(startX, startY, endX - startX, endY - startY).build();
+                    .range(startX, startY, endX - startX, endY - startY)
+                    .build();
             Controller c = new Controller(generator);
             c.saveImage(true, "test.png", code);
 
         } else if (type == FractalType.MANDELBROT) {
-            FractalGenerator generator = FractalGenerator.Builder.newInstance().type(FractalType.MANDELBROT).width(width).height(height)
-                    .range(startX, startY, endX - startX, endY - startY).build();
+            FractalGenerator generator = FractalGenerator.Builder.newInstance()
+                    .type(FractalType.MANDELBROT)
+                    .width(width).height(height)
+                    .range(startX, startY, endX - startX, endY - startY)
+                    .build();
             Controller c = new Controller(generator);
             c.saveImage(true, "test.png", code);
 
