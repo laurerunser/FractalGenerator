@@ -5,6 +5,7 @@ import model.ColorCode;
 import model.FractalGenerator;
 import model.FractalType;
 import model.JuliaGenerator;
+import model.MandelbrotGenerator;
 
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ public class CLI {
 
     public static void askArgsAndRun(Scanner sc) {
         // TODO catch all possible mistakes from user
-        System.out.println("Type of fractal ? Possible answers : Julia "); // todo fix when adding Mandelbrot
+        System.out.println("Type of fractal ? Possible answers : Julia Mandelbrot "); // todo fix when adding Mandelbrot
         FractalType type = findFractalType(sc.next());
         System.out.println("width of picture ? ");
         int width = Integer.parseInt(sc.next());
@@ -43,6 +44,14 @@ public class CLI {
                     .range(startX, startY, endX-startX, endY-startY).build();
             Controller c = new Controller(generator);
             c.saveImage(true, "test.png", code);
+        }else if (type == FractalType.MANDELBROT){
+            // TODO : let the CLI user choose filename
+
+            FractalGenerator generator = MandelbrotGenerator.Builder.newInstance().width(width).height(height)
+                    .range(startX, startY, endX-startX, endY-startY).build();
+            Controller c = new Controller(generator);
+            c.saveImage(true, "test.png", code);
+
         }
     }
 
