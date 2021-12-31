@@ -2,7 +2,6 @@ package model;
 
 import java.util.LinkedList;
 import java.util.function.Function;
-// TODO EN doc
 
 /**
  * This class modelises a Polynom with Complex coefficients

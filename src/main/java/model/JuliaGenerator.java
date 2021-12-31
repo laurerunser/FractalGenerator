@@ -1,7 +1,6 @@
 package model;
 
 import java.awt.geom.Rectangle2D;
-//TODO : doc
 /**
  * This class generates Julia sets
  */

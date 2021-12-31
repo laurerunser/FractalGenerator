@@ -67,10 +67,10 @@ public class Controller {
      */
     public void saveImage(boolean makeImage, String filename, ColorCode.Code colorCode) {
         if (filename.isEmpty()) {
-            filename = "test";
+            filename = "test.png";
         }
 
-        File outputfile = new File(filename + ".png");
+        File outputfile = new File(filename);
         if (makeImage) {
             generator.computeDivergenceIndex();
             image = makeImage(colorCode);
@@ -85,6 +85,7 @@ public class Controller {
         try {
             FileWriter fo = new FileWriter(filename + ".txt");
             fo.write(generator.toString());
+            fo.close();
         } catch (Exception e) {
             System.out.println("Couldn't save the text file with the settings.");
         }
@@ -139,7 +140,6 @@ public class Controller {
             range.y = range.y + dir * (range.height / 3);
         }
         view.getImagePanel().drawImage(true);
-        // TODO : move without recomputing the entire image
     }
 
     /**

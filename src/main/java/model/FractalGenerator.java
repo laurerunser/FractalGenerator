@@ -107,7 +107,7 @@ public abstract class FractalGenerator {
      * @return the array of divergence index
      */
     public double[][] getDivergenceIndex() {
-        return divergenceIndex; // TODO : defensive copy ?
+        return divergenceIndex;
     }
 
     /**
@@ -121,8 +121,6 @@ public abstract class FractalGenerator {
                 divergenceIndex[x][y] = divergenceIndex(xI, yJ);
             });
         });
-
-        System.out.println(range.x + " " + range.y + " " + range.width + " " + range.height);
     }
 
     /**

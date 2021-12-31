@@ -95,8 +95,9 @@ public class ImagePanel extends JPanel {
      */
     private JButton makeSaveButton() {
         JButton save = new JButton("Save image");
-        save.addActionListener(e -> controller.saveImage(false, "img.png", colorCode));
-        // TODO : let the user choose where to save the image and the filename
+        save.addActionListener(e -> {
+            controller.saveImage(false, "image.png", colorCode);
+        });
         return save;
     }
 

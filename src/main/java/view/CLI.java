@@ -8,8 +8,6 @@ import model.FractalType;
 import java.util.Locale;
 import java.util.Scanner;
 
-// TODO : load from a file
-
 /**
  * This is the main class to launch the CLI interface.
  */
@@ -22,7 +20,6 @@ public class CLI {
      * @param ask If true, asks the questions on System.out; otherwise just reads the answers
      */
     public static void askArgsAndRun(Scanner sc, boolean ask) {
-        // TODO catch all possible mistakes from user
         if (ask) System.out.println("Type of fractal ? Possible answers : Julia Mandelbrot ");
         FractalType type = findFractalType(sc.next());
         if (ask) System.out.println("width of picture ? ");
@@ -39,8 +36,6 @@ public class CLI {
         double endY = Double.parseDouble(sc.next());
         if (ask) System.out.println("color code ? Possible values : HUE1, HUE2, HUE3");
         ColorCode.Code code = ColorCode.fromString(sc.next());
-
-        // TODO : let the CLI user choose filename
 
         if (type == FractalType.JULIA) {
             if (ask) System.out.println("real part of the julia constant ? ");

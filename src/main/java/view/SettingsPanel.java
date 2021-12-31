@@ -320,8 +320,6 @@ public class SettingsPanel extends JPanel {
         down.setPreferredSize(new Dimension(48, 48));
         down.addActionListener(e -> controller.move(false, false));
 
-        // TODO : choose how much to move
-
         panel.add(left);
         panel.add(right);
         panel.add(up);
@@ -333,7 +331,6 @@ public class SettingsPanel extends JPanel {
      * @return a JPanel with the zoom buttons
      */
     private JPanel makeZoomButtons() {
-        // TODO choose how much to zoom in
         JLabel zoom = new JLabel("Zoom : ");
 
         JButton in = new JButton("+");
@@ -411,7 +408,6 @@ public class SettingsPanel extends JPanel {
                     .build();
             controller.setGenerator(generator);
         });
-
 
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createTitledBorder("Pre-set examples"));
