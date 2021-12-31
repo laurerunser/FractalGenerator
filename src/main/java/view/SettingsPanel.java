@@ -353,7 +353,7 @@ public class SettingsPanel extends JPanel {
         rabbit.addActionListener(e -> {
             FractalGenerator generator = FractalGenerator.Builder.newInstance()
                     .type(FractalType.JULIA)
-                    .polynomeConstant(2.55268, -0.959456)
+                    .polynomeConstant(-0.7269, -0.1889)
                     .build();
             controller.setGenerator(generator);
         });
