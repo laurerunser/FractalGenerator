@@ -81,8 +81,6 @@ public class Complex {
         return ree * ree + img * img;
     }
 
-    public double getMul() { return 2 * ree * img; }
-
     /**
      * @return une copie de this
      */
@@ -96,7 +94,6 @@ public class Complex {
 
         ree = a*a - b*b + z0.ree;
         img = 2*a*b + z0.img;
-
     }
 
 }
