@@ -4,3 +4,6 @@
 *.class
 /test.png
 /img.png
+/build/
+/bin/
+/gradle/
