@@ -13,7 +13,7 @@ public class Main {
         String input = sc.next();
 
         if (input.toLowerCase(Locale.ROOT).equals("cli")) {
-            CLI.askArgsAndRun(sc);
+            CLI.askArgsAndRun(sc, true);
         } else {
             Controller c = new Controller();
         }

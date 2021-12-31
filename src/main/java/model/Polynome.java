@@ -5,25 +5,30 @@ import java.util.function.Function;
 // TODO EN doc
 
 /**
- * Cette classe modelise un polynome a coefficients complexes.
+ * This class modelises a Polynom with Complex coefficients
  */
-public class Polynome implements Function<Complex,Complex> {
+public class Polynome implements Function<Complex, Complex> {
 
     /**
-     * Liste des coefficients du polynome.
-     * Le polynome est de la forme : coef[0] + coef[1] * x + coef[2] * x^2 + ...
+     * The list of coefs
+     * The polynom is : coef[0] + coef[1] * x + coef[2] * x^2 + ...
      */
     LinkedList<Complex> coef;
 
-    private Polynome (LinkedList<Complex> coef){
-        this.coef=coef;
+    /**
+     * Creates a new Polynome from a list of Complex coefs
+     *
+     * @param coef the list of Complex coeds
+     */
+    private Polynome(LinkedList<Complex> coef) {
+        this.coef = coef;
     }
 
     /**
-     * Cree un polynome de la forme z^2 + c
+     * Creates a polynome of the form z^2 + c
      *
-     * @param c - un Complexe qui sera la constante du polynome
-     * @return un polynome de la forme z^2 + c
+     * @param c the constant of the Polynome
+     * @return a polynome of the form z^2 + c
      */
     public static Polynome buildPolynomeSimple(Complex c){
         LinkedList<Complex> list = new LinkedList<>();
@@ -33,9 +38,6 @@ public class Polynome implements Function<Complex,Complex> {
         return new Polynome(list);
     }
 
-    /**
-     * @return une String qui presente le polynome sous forme d'equation
-     */
     @Override
     public String toString(){
         StringBuilder s = new StringBuilder(coef.get(0) + " ");
@@ -46,7 +48,9 @@ public class Polynome implements Function<Complex,Complex> {
     }
 
     /**
-     * Applique le polynome a un Complex arg0
+     * Applies the polynome p to the complex number
+     * @param arg0  the number to apply to polynome to
+     * @return the result p(arg0)
      */
     @Override
     public Complex apply(Complex arg0) {
@@ -56,5 +60,4 @@ public class Polynome implements Function<Complex,Complex> {
         }
         return z;
     }
-
 }
