@@ -4,3 +4,5 @@
 *.class
 /test.png
 /img.png
+/gradle/wrapper/
+/build/
