@@ -28,5 +28,4 @@ public class GUI extends JFrame {
     }
 
     public ImagePanel getImagePanel() { return imagePanel; }
-
 }

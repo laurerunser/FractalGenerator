@@ -46,7 +46,6 @@ public class CLI {
         }
     }
 
-
     private static FractalType findFractalType(String name) {
         if (name.equals("Julia")) {
             return FractalType.JULIA;

@@ -79,6 +79,7 @@ public class Controller {
             range.y = range.y + dir * (range.height / 3);
         }
         view.getImagePanel().drawImage(true);
+        // TODO : move without recomputing the entire image
     }
 
     public void resetFractal() {
@@ -99,7 +100,5 @@ public class Controller {
 
         view.getImagePanel().drawImage(true);
     }
-
-
 
 }

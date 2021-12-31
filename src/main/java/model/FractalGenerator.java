@@ -1,8 +1,6 @@
 package model;
 
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.util.concurrent.RecursiveAction;
 import java.util.stream.IntStream;
 
 // TODO : doc

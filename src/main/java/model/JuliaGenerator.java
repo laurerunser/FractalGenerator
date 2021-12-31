@@ -2,8 +2,6 @@ package model;
 
 import java.awt.geom.Rectangle2D;
 import java.util.Objects;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.RecursiveAction;
 //TODO : doc
 /**
  * This class generates Julia sets
@@ -21,7 +19,6 @@ public class JuliaGenerator extends FractalGenerator{
         divergenceIndex = new double[width][height];
         this.polynom = poly;
     }
-
 
     int divergenceIndex(double x, double y){
         int indice = 0;

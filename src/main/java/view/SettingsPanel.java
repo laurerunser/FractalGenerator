@@ -188,4 +188,5 @@ public class SettingsPanel extends JPanel {
         }
         return result;
     }
+
 }
