@@ -8,16 +8,52 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.ParseException;
 
+/**
+ * This is the settings panel for the GUi view (on the right of the screen)
+ */
 public class SettingsPanel extends JPanel {
-    private JRadioButton julia;
-    private JRadioButton mandel;
-    private JSpinner widthField;
-    private JSpinner heightField;
-    private JSpinner nbIterField;
-    private JSpinner[] spinnersRange;
-    private JSpinner[] juliaSpinners;
+    /**
+     * The controller
+     */
     private final Controller controller;
+    private JRadioButton mandel;
+    /**
+     * The JButtons to select the fractal type
+     */
+    private JRadioButton julia;
+    /**
+     * The field to select the width of the final picture
+     */
+    private JSpinner widthField;
+    /**
+     * The field to select the height of the final picture
+     */
+    private JSpinner heightField;
+    /**
+     * The field to select the maximum number of iteration
+     * (used when computing the fractal)
+     */
+    private JSpinner nbIterField;
+    /**
+     * The fields to select the part of the complex plane.
+     * - [0] -> start x
+     * - [1] -> start y
+     * - [2] -> end x
+     * - [3] -> end y
+     */
+    private JSpinner[] spinnersRange;
+    /**
+     * The fields to select the complex constant for the Julia set.
+     * - [0] -> the real part
+     * - [1] -> the imaginary part
+     */
+    private JSpinner[] juliaSpinners;
 
+    /**
+     * Creates a new SettingsPanel, puts it on the right of the screen and makes it visible
+     *
+     * @param controller The controller to process the actions
+     */
     public SettingsPanel(Controller controller) {
         this.controller = controller;
         this.setLayout(new GridLayout(5, 1));
@@ -29,7 +65,12 @@ public class SettingsPanel extends JPanel {
         this.setVisible(true);
     }
 
-
+    /**
+     * Makes the buttons to choose the fractal type
+     * and the fields to choose the Julia constant
+     *
+     * @return a JPanel with all the elements initialized
+     */
     private JPanel makeFractalTypeButtons() {
         // choice of the fractal
         ButtonGroup bg = new ButtonGroup();
@@ -61,6 +102,9 @@ public class SettingsPanel extends JPanel {
         return panel;
     }
 
+    /**
+     * @return a JPanel with a field to choose the maximum number of iterations
+     */
     private JPanel makeNbIterationsButton() {
         JLabel label = new JLabel("Maximum number of iterations");
         nbIterField = new JSpinner(new SpinnerNumberModel(999, 300, 2000, 1));
@@ -74,6 +118,9 @@ public class SettingsPanel extends JPanel {
         return panel;
     }
 
+    /**
+     * @return a JPanel with 2 fields to choose the width and height of the final picture
+     */
     private JPanel makeWidthAndHeightButtons() {
         JLabel widthLabel = new JLabel("Width");
         JLabel heightLabel = new JLabel("Height");
@@ -98,6 +145,9 @@ public class SettingsPanel extends JPanel {
         return panel;
     }
 
+    /**
+     * @return a JPanel with 4 fields to choose which parts of the complex plane should be considered
+     */
     private JPanel makeRangeFields() {
         JLabel explanation = new JLabel("You can choose which part of the complexe plane you want to compute." +
                 "You can always zoom in or out later.");
@@ -115,6 +165,9 @@ public class SettingsPanel extends JPanel {
         return panel;
     }
 
+    /**
+     * @return a JPanel with a button to generate the fractal
+     */
     private JPanel makeValidateButton() {
         JButton button = new JButton("Generate");
 
@@ -125,6 +178,16 @@ public class SettingsPanel extends JPanel {
         return panel;
     }
 
+    /**
+     * When you change a value inside a JSpinner, you need to validate the edit
+     * and make sure it is in the correct interval.
+     * If it is not, creates a little dialog to tell the user, and keeps the old
+     * value.
+     *
+     * @param spinner the spinner
+     * @param min     the min value the spinner can take
+     * @param max     the max value the spinner can take
+     */
     private void commitEditSpinner(JSpinner spinner, int min, int max) {
         try {
             spinner.commitEdit();
@@ -134,17 +197,33 @@ public class SettingsPanel extends JPanel {
         }
     }
 
+    /**
+     * Initializes a spinner with a tool tip text and the ActionListener
+     * to validate the values.
+     *
+     * @param s the spinner
+     */
     private void initRangeSpinner(JSpinner s) {
         s.setToolTipText("Choose an integer value between -300 and 300");
         s.addChangeListener(e -> commitEditSpinner(s, -300, 300));
     }
 
+    /**
+     * This method initializes 2 JSpinners to input a complex number.
+     * The JSpinners will accept numbers from -300 to 300, with a step size of 0.25
+     *
+     * @param labelStr     The label of the complex
+     * @param spinners     The array in which to put the JSpinners
+     * @param startIndex   The index at which to put the first JSpinner in the array
+     * @param defaultValue The default value of the fields
+     * @return a JPanel wich contains the label + the fields to input a complex number
+     */
     private JPanel initComplexeNbSpinners(String labelStr, JSpinner[] spinners, int startIndex, int defaultValue) {
         JLabel plus = new JLabel(" + ");
         JLabel i = new JLabel(" * i");
         JLabel label = new JLabel(labelStr);
 
-        for(int j = startIndex; j<startIndex+2; j++) {
+        for (int j = startIndex; j < startIndex + 2; j++) {
             spinners[j] = new JSpinner(new SpinnerNumberModel(defaultValue, -300, 300, 0.25));
             initRangeSpinner(spinners[j]);
         }
@@ -155,12 +234,16 @@ public class SettingsPanel extends JPanel {
         panel.add(label);
         panel.add(spinners[startIndex]);
         panel.add(plus);
-        panel.add(spinners[startIndex+1]);
+        panel.add(spinners[startIndex + 1]);
         panel.add(i);
 
         return panel;
     }
 
+    /**
+     * Gets the values from all the fields and creates a FractalGenerator from them.
+     * Then tells the controller to start generating the fractal.
+     */
     private void createGenerator() {
         FractalGenerator generator = null;
         double[] range = parseSpinnerDouble(spinnersRange);
@@ -185,9 +268,16 @@ public class SettingsPanel extends JPanel {
                     .type(FractalType.MANDELBROT)
                     .build();
         }
+        assert (generator != null);
         controller.setGenerator(generator);
     }
 
+    /**
+     * Parses the spinners to get the values inside
+     *
+     * @param spinners the JSpinner array to parse
+     * @return an array of the values inside the JSpinners
+     */
     private double[] parseSpinnerDouble(JSpinner[] spinners) {
         double[] result = new double[spinners.length];
         for (int i = 0; i < spinners.length; i++) {
@@ -195,5 +285,4 @@ public class SettingsPanel extends JPanel {
         }
         return result;
     }
-
 }
