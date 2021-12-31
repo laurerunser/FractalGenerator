@@ -89,20 +89,21 @@ public class Controller {
         view.getImagePanel().drawImage(true);
     }
 
-    // TODO : choose how much to zoom (replace '2' by a variable 'scale')
-    public void zoom(int x, int y) {
+    public void zoom(int x, int y, double scaleFactor) {
         Rectangle2D.Double range = generator.getRange();
-        // 2*2 bc scale factor is 2, and also we only need half of the
-        // width bc the point (x,y) is the new center of the screen
-        range.x = (range.x + (double)x/generator.getWidth() * range.width) - range.width / (2*2);
-        range.y = (range.y + (double)y/ generator.getHeight() * range.height) - range.height / (2*2);
+        // scaleFactor*2 because we only need half of the
+        // width/height => the point (x,y) is the new center of the screen
+        range.x = (range.x + (double) x / generator.getWidth() * range.width) - range.width / (scaleFactor * 2);
+        range.y = (range.y + (double) y / generator.getHeight() * range.height) - range.height / (scaleFactor * 2);
 
-        range.width /= 2;
-        range.height /= 2;
+        range.width /= scaleFactor;
+        range.height /= scaleFactor;
 
         view.getImagePanel().drawImage(true);
     }
 
-
+    public void zoom(double scaleFactor) {
+        zoom(generator.getWidth() / 2, generator.getHeight() / 2, scaleFactor);
+    }
 
 }

@@ -5,6 +5,7 @@ import model.FractalGenerator;
 import model.FractalType;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 import java.text.ParseException;
 
@@ -56,12 +57,14 @@ public class SettingsPanel extends JPanel {
      */
     public SettingsPanel(Controller controller) {
         this.controller = controller;
-        this.setLayout(new GridLayout(5, 1));
+        this.setLayout(new GridLayout(0, 1));
         this.add(makeFractalTypeButtons(), 0);
         this.add(makeNbIterationsButton(), 1);
         this.add(makeWidthAndHeightButtons(), 2);
         this.add(makeRangeFields(), 3);
         this.add(makeValidateButton(), 4);
+        this.add(makeNavigationButtons(), 5);
+        this.add(makeZoomButtons(), 6);
         this.setVisible(true);
     }
 
@@ -284,5 +287,53 @@ public class SettingsPanel extends JPanel {
             result[i] = Double.parseDouble(spinners[i].getValue().toString());
         }
         return result;
+    }
+
+    /**
+     * @return a JPanel with navigation buttons inside
+     */
+    private JPanel makeNavigationButtons() {
+        JPanel panel = new JPanel();
+
+        BasicArrowButton left = new BasicArrowButton(BasicArrowButton.WEST);
+        left.setPreferredSize(new Dimension(48, 48));
+        left.addActionListener(e -> controller.move(true, true));
+        BasicArrowButton right = new BasicArrowButton(BasicArrowButton.EAST);
+        right.setPreferredSize(new Dimension(48, 48));
+        right.addActionListener(e -> controller.move(true, false));
+
+        BasicArrowButton up = new BasicArrowButton(BasicArrowButton.NORTH);
+        up.setPreferredSize(new Dimension(48, 48));
+        up.addActionListener(e -> controller.move(false, true));
+        BasicArrowButton down = new BasicArrowButton(BasicArrowButton.SOUTH);
+        down.setPreferredSize(new Dimension(48, 48));
+        down.addActionListener(e -> controller.move(false, false));
+
+        // TODO : choose how much to move
+
+        panel.add(left);
+        panel.add(right);
+        panel.add(up);
+        panel.add(down);
+        return panel;
+    }
+
+    /**
+     * @return a JPanel with the zoom buttons
+     */
+    private JPanel makeZoomButtons() {
+        // TODO choose how much to zoom in
+        JLabel zoom = new JLabel("Zoom : ");
+
+        JButton in = new JButton("+");
+        in.addActionListener(e -> controller.zoom(2));
+        JButton out = new JButton("-");
+        out.addActionListener(e -> controller.zoom(0.5));
+
+        JPanel panel = new JPanel();
+        panel.add(zoom);
+        panel.add(in);
+        panel.add(out);
+        return panel;
     }
 }
