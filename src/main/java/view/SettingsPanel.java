@@ -2,7 +2,7 @@ package view;
 
 import controller.Controller;
 import model.FractalGenerator;
-import model.JuliaGenerator;
+import model.FractalType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -167,16 +167,23 @@ public class SettingsPanel extends JPanel {
         int width = Integer.parseInt(widthField.getValue().toString());
         int height = Integer.parseInt(heightField.getValue().toString());
         int maxIter = Integer.parseInt(nbIterField.getValue().toString());
+
+        FractalGenerator.Builder builder =
+                FractalGenerator.Builder.newInstance()
+                        .width(width).height(height)
+                        .range(range[0], range[1], range[2] - range[0], range[3] - range[1])
+                        .maxIter(maxIter);
+
         if (julia.isSelected()) {
             double[] juliaNb = parseSpinnerDouble(juliaSpinners);
-            generator = JuliaGenerator.Builder.newInstance()
-                    .width(width).height(height)
-                    .range(range[0], range[1], range[2]-range[0], range[3]-range[1])
+            generator = builder
+                    .type(FractalType.JULIA)
                     .polynomeConstant(juliaNb[0], juliaNb[1])
-                    .maxIter(maxIter)
                     .build();
-        } else {
-            // TODO mandelbrot
+        } else if (mandel.isSelected()) {
+            generator = builder
+                    .type(FractalType.MANDELBROT)
+                    .build();
         }
         controller.setGenerator(generator);
     }
