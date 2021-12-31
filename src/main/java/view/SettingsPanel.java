@@ -403,6 +403,15 @@ public class SettingsPanel extends JPanel {
             controller.setGenerator(generator);
         });
 
+        JButton mandel3 = new JButton("Mandelbrot: pretty part");
+        mandel3.addActionListener(e -> {
+            FractalGenerator generator = FractalGenerator.Builder.newInstance()
+                    .type(FractalType.MANDELBROT)
+                    .range(-0.144, -0.651, 0.000976, 0.000976)
+                    .build();
+            controller.setGenerator(generator);
+        });
+
 
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createTitledBorder("Pre-set examples"));

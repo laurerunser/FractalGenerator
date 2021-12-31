@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.stream.IntStream;
 
@@ -65,13 +66,11 @@ public class Controller {
      * @param colorCode the color code to use (if generating the image
      */
     public void saveImage(boolean makeImage, String filename, ColorCode.Code colorCode) {
-        // TODO also save a .txt with the info about the fractal
-        // use the toString that was already coded in the Generators
         if (filename.isEmpty()) {
-            filename = "test.png";
+            filename = "test";
         }
 
-        File outputfile = new File(filename);
+        File outputfile = new File(filename + ".png");
         if (makeImage) {
             generator.computeDivergenceIndex();
             image = makeImage(colorCode);
@@ -81,6 +80,13 @@ public class Controller {
             ImageIO.write(image, "png", outputfile);
         } catch (IOException e) {
             System.out.println("pb writing image " + filename);
+        }
+
+        try {
+            FileWriter fo = new FileWriter(filename + ".txt");
+            fo.write(generator.toString());
+        } catch (Exception e) {
+            System.out.println("Couldn't save the text file with the settings.");
         }
     }
 
