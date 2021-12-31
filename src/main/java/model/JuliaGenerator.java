@@ -17,10 +17,10 @@ public class JuliaGenerator extends FractalGenerator {
         return "Julia : \n" + super.toString() + "\npolynome : " + polynom.toString();
     }
 
-    int divergenceIndex(double x, double y) {
+    protected int divergenceIndex(double x, double y) {
         int indice = 0;
         Complex zn = new Complex(x, y);
-        while (indice < max_iter-1 && zn.getAbs() < 4){
+        while (indice < max_iter - 1 && zn.getAbs() < 4) {
             double tmp = zn.ree * zn.ree - zn.img * zn.img;
             zn.img = 2.0 * zn.ree * zn.img + polynom.coef.get(0).ree;
             zn.ree = tmp + polynom.coef.get(0).img;

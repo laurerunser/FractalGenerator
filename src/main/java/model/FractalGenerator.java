@@ -4,20 +4,54 @@ import java.awt.geom.Rectangle2D;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
-// TODO : doc
+/**
+ * This is the abstract class that modelises a generator for fractals.
+ */
 public abstract class FractalGenerator {
-
-    protected Polynome polynom;
-    protected Rectangle2D.Double range;
-    protected Rectangle2D.Double initialRange;
-
-    protected int width;
-    protected int height;
-    protected double[][] divergenceIndex = null;
-
-    protected int max_iter;
+    /**
+     * The radius. Used to compute the fractal.
+     * Could be changed ? But it doesn't seem to make much difference in the fractal
+     */
     protected static int RADIUS = 4;
+    /**
+     * The Polynome associated with the fractal generator.
+     * Can be null for some generators (for ex Mandelbrot)
+     */
+    protected Polynome polynom;
+    /**
+     * The current range of the complex plane being considered
+     */
+    protected Rectangle2D.Double range;
+    /**
+     * The initial range of the complex plane.
+     * Used to reset the fractal to its initial state.
+     */
+    protected Rectangle2D.Double initialRange;
+    /**
+     * The width of the final picture
+     */
+    protected int width;
+    /**
+     * The height of the final picture
+     */
+    protected int height;
+    /**
+     * The array that holds the divergence index for each pixel in the final picture
+     */
+    protected double[][] divergenceIndex;
+    /**
+     * The maximum number of iteration
+     */
+    protected int max_iter;
 
+    /**
+     * Creates a new FractalGenerator
+     *
+     * @param height   the height of the final picture
+     * @param width    the width of the final picture
+     * @param max_iter the maximum number of iterations
+     * @param range    the range of the complex plane to consider
+     */
     public FractalGenerator(int height, int width, int max_iter, Rectangle2D.Double range) {
         this.height = height;
         this.width = width;
@@ -34,32 +68,50 @@ public abstract class FractalGenerator {
                 + "\nending point : " + (range.x + range.width) + " + " + (range.y + range.height) + " *i";
     }
 
+    /**
+     * @return the range
+     */
     public Rectangle2D.Double getRange() {
         return range;
     }
 
+    /**
+     * Resets the range to the initial one (before any zooming or navigation happened)
+     */
     public void resetRange() {
         range = initialRange;
     }
 
+    /**
+     * @return the width of the final picture
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * @return the height of the final picture
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     * @return the maximum number of iterations
+     */
     public int getMaxIter() {
         return max_iter;
     }
 
+    /**
+     * @return the array of divergence index
+     */
     public double[][] getDivergenceIndex() {
         return divergenceIndex; // TODO : defensive copy ?
     }
 
     /**
-     * Computes all the divergence index
+     * Computes all the divergence index for the given range.
      */
     public void computeDivergenceIndex(Rectangle2D.Double range) {
         IntStream.range(0, width).parallel().forEach(x -> {
@@ -71,15 +123,25 @@ public abstract class FractalGenerator {
         });
     }
 
+    /**
+     * Compute all the divergence index for the current range.
+     */
     public void computeDivergenceIndex() {
         computeDivergenceIndex(range);
     }
 
-        abstract int divergenceIndex(double x, double y);
+    /**
+     * Computes the divergence index for a number
+     *
+     * @param x the real part of the number
+     * @param y the imaginary part of the number
+     * @return the divergence index
+     */
+    protected abstract int divergenceIndex(double x, double y);
 
-    //////////////
-    // BUILDER
-    /////////////
+    /**
+     * This class is a builder for different types of fractals
+     */
     public static class Builder {
         private Polynome polynom;
         private Rectangle2D.Double range;
@@ -139,7 +201,5 @@ public abstract class FractalGenerator {
             maxIter = m;
             return this;
         }
-
     }
-
 }

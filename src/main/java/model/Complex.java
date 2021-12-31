@@ -1,17 +1,24 @@
 package model;
-//TODO EN doc
+
 /**
- * Cette classe modelise un nombre complexe.
+ * This class modelises a complex number
  */
 public class Complex {
+    /**
+     * The real part of the number
+     */
     double ree;
+
+    /**
+     * The imaginary part of the number
+     */
     double img;
 
     /**
-     * Construit un complexe
+     * Creates a new Complex
      *
-     * @param r - la partie reelle
-     * @param i - la partie imaginaire
+     * @param r The real part
+     * @param i The imaginary part
      */
     public Complex(double r, double i) {
         this.ree = r;
@@ -22,26 +29,26 @@ public class Complex {
     public String toString() { return (ree + " + " + img + "*i"); }
 
     /**
-     * @return la partie imaginaire
+     * @return the imaginary part
      */
     public double getImg() { return img; }
 
     /**
-     * @return la partie reelle
+     * @return the real part
      */
     public double getRee() { return ree; }
 
     /**
-     * @param z - un Complexe
-     * @return la somme de this et z
+     * @param z a Complex
+     * @return the sum of this and z
      */
     public Complex somme(Complex z) {
         return new Complex(this.getRee() + z.getRee(), this.getImg() + z.getImg());
     }
 
     /**
-     * @param z - un Complexe
-     * @return le produit de this et z
+     * @param z a Complex
+     * @return the product of this and z
      */
     public Complex produit(Complex z) {
         double a = this.getRee();
@@ -52,15 +59,8 @@ public class Complex {
     }
 
     /**
-     * @return le module
-     */
-    public double getModule() {
-        return Math.sqrt((this.img * this.img) + (this.ree * this.ree));
-    }
-
-    /**
-     * @param n - la puissance
-     * @return this puissance n
+     * @param n the power
+     * @return this at the power of n
      */
     public Complex puissance(int n) {
         if (n == 0){
@@ -75,25 +75,30 @@ public class Complex {
     }
 
     /**
-     * @return la valeur absolue d'un nombre complexe
+     * @return the "absolute value" of this.
+     * It is nearly the module, but not exactly.
      */
     public double getAbs() {
         return ree * ree + img * img;
     }
 
     /**
-     * @return une copie de this
+     * @return a deep copy of this
      */
     public Complex copy() {
         return new Complex(getRee(), getImg());
     }
 
-    public void mandel (Complex z0){
+    /**
+     * Computes the mandel number of this, with the constant z0
+     *
+     * @param z0 the constant
+     */
+    public void mandel(Complex z0) {
         double a = this.getRee();
         double b = this.getImg();
 
-        ree = a*a - b*b + z0.ree;
-        img = 2*a*b + z0.img;
+        ree = a * a - b * b + z0.ree;
+        img = 2 * a * b + z0.img;
     }
-
 }
