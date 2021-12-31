@@ -171,7 +171,7 @@ public class SettingsPanel extends JPanel {
             double[] juliaNb = parseSpinnerDouble(juliaSpinners);
             generator = JuliaGenerator.Builder.newInstance()
                     .width(width).height(height)
-                    .range(range[0], range[1], range[2], range[3])
+                    .range(range[0], range[1], range[2]-range[0], range[3]-range[1])
                     .polynomeConstant(juliaNb[0], juliaNb[1])
                     .maxIter(maxIter)
                     .build();

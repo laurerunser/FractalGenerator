@@ -1,7 +1,6 @@
 package view;
 
 import controller.Controller;
-import model.ImagePanel;
 
 import javax.swing.*;
 import java.awt.*;

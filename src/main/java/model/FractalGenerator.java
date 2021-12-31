@@ -1,6 +1,8 @@
 package model;
 
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.util.concurrent.RecursiveAction;
 import java.util.stream.IntStream;
 
 // TODO : doc
@@ -62,7 +64,10 @@ public abstract class FractalGenerator {
         });
     }
 
-    abstract int divergenceIndex(double x, double y);
+    public void computeDivergenceIndex() {
+        computeDivergenceIndex(range);
+    }
 
+        abstract int divergenceIndex(double x, double y);
 
 }

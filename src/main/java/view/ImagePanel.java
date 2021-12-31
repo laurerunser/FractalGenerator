@@ -1,6 +1,7 @@
-package model;
+package view;
 
 import controller.Controller;
+import model.ColorCode;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicArrowButton;

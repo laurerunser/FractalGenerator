@@ -37,7 +37,7 @@ public class Controller {
 
         File outputfile = new File(filename);
         if(makeImage) {
-            generator.computeDivergenceIndex(generator.getRange());
+            generator.computeDivergenceIndex();
             image = makeImage(colorCode);
         }
 
@@ -52,7 +52,7 @@ public class Controller {
         if (range != null) {
             generator.computeDivergenceIndex(range);
         } else {
-            generator.computeDivergenceIndex(generator.getRange());
+            generator.computeDivergenceIndex();
         }
     }
 
