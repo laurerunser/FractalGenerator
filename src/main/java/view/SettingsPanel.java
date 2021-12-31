@@ -227,7 +227,7 @@ public class SettingsPanel extends JPanel {
         JLabel label = new JLabel(labelStr);
 
         for (int j = startIndex; j < startIndex + 2; j++) {
-            spinners[j] = new JSpinner(new SpinnerNumberModel(defaultValue, -300, 300, 0.25));
+            spinners[j] = new JSpinner(new SpinnerNumberModel(defaultValue, -300, 300, 0.01));
             initRangeSpinner(spinners[j]);
         }
 
@@ -407,7 +407,7 @@ public class SettingsPanel extends JPanel {
         mandel3.addActionListener(e -> {
             FractalGenerator generator = FractalGenerator.Builder.newInstance()
                     .type(FractalType.MANDELBROT)
-                    .range(-0.144, -0.651, 0.000976, 0.000976)
+                    .range(-0.144, -0.6513, 0.000976, 0.000976)
                     .build();
             controller.setGenerator(generator);
         });
@@ -424,6 +424,7 @@ public class SettingsPanel extends JPanel {
         panel.add(juliaEx2);
         panel.add(mandel1);
         panel.add(mandel2);
+        panel.add(mandel3);
         return panel;
     }
 }
