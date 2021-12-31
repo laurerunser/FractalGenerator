@@ -385,11 +385,20 @@ public class SettingsPanel extends JPanel {
             controller.setGenerator(generator);
         });
 
-        JButton mandel1 = new JButton("Mandelbrot: hippocamp valley");
+        JButton mandel1 = new JButton("Mandelbrot: seahorse valley");
         mandel1.addActionListener(e -> {
             FractalGenerator generator = FractalGenerator.Builder.newInstance()
                     .type(FractalType.MANDELBROT)
-                    .range(-0.78, -0.2, 0.0937, 0.0937)
+                    .range(-0.811, -0.2, 0.0937, 0.0937)
+                    .build();
+            controller.setGenerator(generator);
+        });
+
+        JButton mandel2 = new JButton("Mandelbrot: antenna");
+        mandel2.addActionListener(e -> {
+            FractalGenerator generator = FractalGenerator.Builder.newInstance()
+                    .type(FractalType.MANDELBROT)
+                    .range(0.297, -0.604, 0.0625, 0.0625)
                     .build();
             controller.setGenerator(generator);
         });
@@ -404,6 +413,8 @@ public class SettingsPanel extends JPanel {
         panel.add(circle);
         panel.add(juliaEx);
         panel.add(juliaEx2);
+        panel.add(mandel1);
+        panel.add(mandel2);
         return panel;
     }
 }
