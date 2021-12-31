@@ -81,13 +81,19 @@ public class Complex {
         return ree * ree + img * img;
     }
 
-    public double getMul() { return 2 * ree * img; }
-
     /**
      * @return une copie de this
      */
     public Complex copy() {
         return new Complex(getRee(), getImg());
+    }
+
+    public void mandel (Complex z0){
+        double a = this.getRee();
+        double b = this.getImg();
+
+        ree = a*a - b*b + z0.ree;
+        img = 2*a*b + z0.img;
     }
 
 }

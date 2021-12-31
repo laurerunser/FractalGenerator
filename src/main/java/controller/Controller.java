@@ -31,6 +31,8 @@ public class Controller {
     }
 
     public void saveImage(boolean makeImage, String filename, ColorCode.Code colorCode) {
+        // TODO also save a .txt with the info about the fractal
+        // use the toString that was already coded in the Generators
         if (filename.isEmpty()) {
             filename = "test.png";
         }
@@ -100,5 +102,7 @@ public class Controller {
 
         view.getImagePanel().drawImage(true);
     }
+
+
 
 }
